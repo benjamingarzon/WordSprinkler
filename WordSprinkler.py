@@ -4,13 +4,12 @@ Created on Thu Apr  8 10:16:47 2021
 
 @author: Benjamin.Garzon
 """
-import random
-from google_trans_new import google_translator
-import pickle
 import os
-from collections import defaultdict
+import pickle
+import random
 import re
-
+from collections import defaultdict
+from google_trans_new import google_translator
 
 # define parameters
 N = 20
@@ -66,7 +65,7 @@ def sprinkle(N, FREQS_FILE, SRC_FILE, SEND):
     if SEND == "email":
         print(message)
         import yagmail
-        
+
         SENDER_ADDRESS = os.environ["SENDER_ADDRESS"]
         RECEIVER_ADDRESS = os.environ["RECEIVER_ADDRESS"]
         print("Sending from {} to {}".format(SENDER_ADDRESS, RECEIVER_ADDRESS))
