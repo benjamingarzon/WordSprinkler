@@ -9,6 +9,7 @@ import pickle
 import random
 import re
 from collections import defaultdict
+
 from google_trans_new import google_translator
 
 # define parameters
