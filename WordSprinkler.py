@@ -4,19 +4,19 @@ Created on Thu Apr  8 10:16:47 2021
 
 @author: Benjamin.Garzon
 """
-# define parameters
-N = 20
-FREQS_FILE = "freqs.pkl"
-SRC_FILE = "notes.txt"
-SEND = "email"
-
-# modules
 import random
 from google_trans_new import google_translator
 import pickle
 import os
 from collections import defaultdict
 import re
+
+
+# define parameters
+N = 20
+FREQS_FILE = "freqs.pkl"
+SRC_FILE = "notes.txt"
+SEND = "email"
 
 
 def sprinkle(N, FREQS_FILE, SRC_FILE, SEND):
@@ -47,7 +47,7 @@ def sprinkle(N, FREQS_FILE, SRC_FILE, SEND):
         pickle.dump(frequencies, myfile)
     # translate into English
     translator = google_translator()
-    lines =  [(line, translator.translate(line, lang_tgt="en")) for line in selected]
+    lines = [(line, translator.translate(line, lang_tgt="en")) for line in selected]
     message = ""
     for line in lines:
         message += "{}\n -> {}\n\n".format(line[0], line[1])
@@ -55,7 +55,7 @@ def sprinkle(N, FREQS_FILE, SRC_FILE, SEND):
     if SEND == "Twilio":
         # send with Whatsapp
         from twilio.rest import Client
-        
+
         # env variables
         TWILIO_ACCOUNT_SID = os.environ["TWILIO_ACCOUNT_SID"]
         TWILIO_AUTH_TOKEN = os.environ["TWILIO_AUTH_TOKEN"]
@@ -77,5 +77,5 @@ def sprinkle(N, FREQS_FILE, SRC_FILE, SEND):
 
 if __name__ == "__main__":
     sprinkle(N, FREQS_FILE, SRC_FILE, SEND)
-#import time
-#time.sleep(5)
+# import time
+# time.sleep(5)
