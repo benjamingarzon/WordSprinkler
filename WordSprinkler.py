@@ -10,7 +10,7 @@ import random
 import re
 from collections import defaultdict
 
-from google_trans_new import google_translator
+import translators as ts
 
 # define parameters
 N = 20
@@ -46,8 +46,12 @@ def sprinkle(N, FREQS_FILE, SRC_FILE, SEND):
     with open(FREQS_FILE, "wb") as myfile:
         pickle.dump(frequencies, myfile)
     # translate into English
-    translator = google_translator()
-    lines = [(line, translator.translate(line, lang_tgt="en")) for line in selected]
+
+    lines = [(line, ts.translate_text(line, to_language="en", translator="google", 
+sleep_seconds = 5, timeout=10)) for line in selected]
+    #lines = [(line, "") for line in selected]
+    #
+
     message = ""
     for line in lines:
         message += "{}\n -> {}\n\n".format(line[0], line[1])
@@ -73,9 +77,10 @@ def sprinkle(N, FREQS_FILE, SRC_FILE, SEND):
         yag = yagmail.SMTP(SENDER_ADDRESS)
         yag.send(to=RECEIVER_ADDRESS, subject="EIN PAAR NEUE WÖRTER", contents=message)
         print("Done!")
-
+    import time
+    time.sleep(5)
 
 if __name__ == "__main__":
     sprinkle(N, FREQS_FILE, SRC_FILE, SEND)
-# import time
-# time.sleep(5)
+import time
+time.sleep(5)
